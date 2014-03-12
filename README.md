@@ -3,11 +3,33 @@
 A simply way to split grunt config for a better readability
 
 ## Getting Started
-Install the module with: `npm install grrr`
+Install the module with: `npm install grrr --save-dev`
 
 ```javascript
-var grrr = require('grrr');
-grrr.awesome(); // "awesome"
+
+'use strict';
+
+module.exports = function (grunt) {
+  var grrr = require('grrr');
+  
+  var copy = new grrr.Task('grunt-contrib-copy', 'copy');
+  var clean = new grrr.Task('grunt-contrib-clean', 'clean');
+  
+  grrr.registerTask('default', [
+    clean.config('all', ['dist/']),
+    copy.config('html', {
+      src: 'src/*',
+      dest: 'dest/',
+    })
+  ]);
+  
+  grrr.registerTask('html', [
+    'copy::html'
+  ]);
+  
+  grrr.run();
+};
+
 ```
 
 ## Documentation
