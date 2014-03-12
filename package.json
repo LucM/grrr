@@ -1,0 +1,35 @@
+{
+  "name": "grrr",
+  "version": "0.0.0",
+  "main": "lib/grrr.js",
+  "description": "A simply way to split grunt config for a better readability",
+  "homepage": "https://github.com/LucM/grrr",
+  "bugs": "https://github.com/LucM/grrr/issues",
+  "author": {
+    "name": "Luc Momal",
+    "email": "luc.momal@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LucM/grrr"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "scripts": {
+    "test": "./node_modules/.bin/mocha -b test -u tdd  -R spec"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-watch": "~0.5.0",
+    "load-grunt-tasks": "~0.2.0",
+    "mocha": "~1.17.1",
+    "time-grunt": "~0.1.1",
+    "jshint-stylish": "~0.1.3",
+    "grunt-mocha-test": "~0.7.0",
+    "grunt-contrib-watch": "~0.5.0"
+  }
+}
