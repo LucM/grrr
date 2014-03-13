@@ -4,40 +4,30 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Grrr by LucM</title>
+
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/respond.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <!--[if lt IE 8]>
-    <link rel="stylesheet" href="stylesheets/ie.css">
-    <![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
   <body>
-      <div id="header">
-        <nav>
-          <li class="fork"><a href="https://github.com/LucM/grrr">View On GitHub</a></li>
-          <li class="downloads"><a href="https://github.com/LucM/grrr/zipball/master">ZIP</a></li>
-          <li class="downloads"><a href="https://github.com/LucM/grrr/tarball/master">TAR</a></li>
-          <li class="title">DOWNLOADS</li>
-        </nav>
-      </div><!-- end header -->
-
     <div class="wrapper">
+      <header>
+        <h1>Grrr</h1>
+        <p>Splitting grunt configuration for a better readability</p>
 
+        <p class="view"><a href="https://github.com/LucM/grrr">View the Project on GitHub <small>LucM/grrr</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/LucM/grrr/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/LucM/grrr/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/LucM/grrr">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
       <section>
-        <div id="title">
-          <h1>Grrr</h1>
-          <p>Splitting grunt configuration for a better readability</p>
-          <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/LucM">LucM</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
-        </div>
-
         <h1>
 <a name="grrr-" class="anchor" href="#grrr-"><span class="octicon octicon-link"></span></a>Grrr <a href="http://travis-ci.org/LucM/grrr"><img src="https://secure.travis-ci.org/LucM/grrr.png?branch=master" alt="Build Status"></a>
 </h1>
@@ -50,93 +40,16 @@
 <p>Install the module with: <code>npm install grrr --save-dev</code></p>
 
 <h2>
-<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
-
-<div class="highlight highlight-javascript"><pre>
-<span class="s1">'use strict'</span><span class="p">;</span>
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">grunt</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">grrr</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'grrr'</span><span class="p">);</span>
-
-  <span class="kd">var</span> <span class="nx">copy</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">grrr</span><span class="p">.</span><span class="nx">Task</span><span class="p">(</span><span class="s1">'grunt-contrib-copy'</span><span class="p">,</span> <span class="s1">'copy'</span><span class="p">);</span>
-  <span class="kd">var</span> <span class="nx">clean</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">grrr</span><span class="p">.</span><span class="nx">Task</span><span class="p">(</span><span class="s1">'grunt-contrib-clean'</span><span class="p">,</span> <span class="s1">'clean'</span><span class="p">);</span>
-
-  <span class="nx">grrr</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">'default'</span><span class="p">,</span> <span class="p">[</span>
-    <span class="nx">clean</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">'all'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'dest/'</span><span class="p">]),</span>
-    <span class="nx">copy</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">'html'</span><span class="p">,</span> <span class="p">{</span>
-      <span class="nx">src</span><span class="o">:</span> <span class="s1">'src/*'</span><span class="p">,</span>
-      <span class="nx">dest</span><span class="o">:</span> <span class="s1">'dest/'</span><span class="p">,</span>
-    <span class="p">})</span>
-  <span class="p">]);</span>
-
-  <span class="nx">grrr</span><span class="p">.</span><span class="nx">run</span><span class="p">();</span>
-<span class="p">};</span>
-
-</pre></div>
-
-<h2>
-<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
-
-<p>Create a new Task object</p>
-
-<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">copy</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">grrr</span><span class="p">.</span><span class="nx">Task</span><span class="p">(</span><span class="s1">'grunt-contrib-copy'</span><span class="p">,</span> <span class="s1">'copy'</span><span class="p">);</span>
-</pre></div>
-
-<p>Create a sub-configuration</p>
-
-<div class="highlight highlight-javascript"><pre><span class="nx">copy</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">'html'</span><span class="p">,</span> <span class="p">{</span>
-      <span class="nx">src</span><span class="o">:</span> <span class="s1">'src/*'</span><span class="p">,</span>
-      <span class="nx">dest</span><span class="o">:</span> <span class="s1">'dest/'</span><span class="p">,</span>
-<span class="p">});</span> <span class="c1">// return "copy:html"</span>
-</pre></div>
-
-<p>Register a new task</p>
-
-<div class="highlight highlight-javascript"><pre><span class="nx">grrr</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">'copyhtml'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'copy:html'</span><span class="p">]);</span>
-<span class="c1">// or</span>
-<span class="nx">grrr</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="s1">'copyhtml'</span><span class="p">,</span> <span class="p">[</span>
-  <span class="nx">copy</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="s1">'html'</span><span class="p">,</span> <span class="p">{</span>
-        <span class="nx">src</span><span class="o">:</span> <span class="s1">'src/*'</span><span class="p">,</span>
-        <span class="nx">dest</span><span class="o">:</span> <span class="s1">'dest/'</span><span class="p">,</span>
-  <span class="p">})</span>
-<span class="p">]);</span>
-
-</pre></div>
-
-<p>Run grrr (actually configure and register tasks for grunt)</p>
-
-<div class="highlight highlight-javascript"><pre><span class="nx">grrr</span><span class="p">.</span><span class="nx">run</span><span class="p">()</span>
-</pre></div>
-
-<h2>
-<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h2>
-
-<p><em>(Coming soon)</em></p>
-
-<h2>
-<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
-
-<p>In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using <a href="http://gruntjs.com/">Grunt</a>.</p>
-
-<h2>
-<a name="release-history" class="anchor" href="#release-history"><span class="octicon octicon-link"></span></a>Release History</h2>
-
-<ul>
-<li>
-<strong>v0.0.1</strong>, <em>TBD</em>
-
-<ul>
-<li>Big Bang</li>
-</ul>
-</li>
-</ul><h2>
 <a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>Copyright (c) 2014 Luc Momal. Licensed under the MIT license.</p>
       </section>
-
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/LucM">LucM</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    <script src="javascripts/scale.fix.js"></script>
     
   </body>
 </html>
