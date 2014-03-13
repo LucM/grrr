@@ -1,10 +1,11 @@
-# grrr [![Build Status](https://secure.travis-ci.org/LucM/grrr.png?branch=master)](http://travis-ci.org/LucM/grrr)
+# Grrr [![Build Status](https://secure.travis-ci.org/LucM/grrr.png?branch=master)](http://travis-ci.org/LucM/grrr)
 
 A simply way to split grunt config for a better readability
 
-## Getting Started
+## Installation
 Install the module with: `npm install grrr --save-dev`
 
+## Usage
 ```javascript
 
 'use strict';
@@ -16,15 +17,11 @@ module.exports = function (grunt) {
   var clean = new grrr.Task('grunt-contrib-clean', 'clean');
   
   grrr.registerTask('default', [
-    clean.config('all', ['dist/']),
+    clean.config('all', ['dest/']),
     copy.config('html', {
       src: 'src/*',
       dest: 'dest/',
     })
-  ]);
-  
-  grrr.registerTask('html', [
-    'copy::html'
   ]);
   
   grrr.run();
@@ -33,7 +30,37 @@ module.exports = function (grunt) {
 ```
 
 ## Documentation
-_(Coming soon)_
+Create a new Task object
+```javascript
+var copy = new grrr.Task('grunt-contrib-copy', 'copy');
+```
+
+Create a sub-configuration
+```javascript
+copy.config('html', {
+      src: 'src/*',
+      dest: 'dest/',
+}); // return "copy:html"
+```
+
+Register a new task
+```javascript
+grrr.registerTask('copyhtml', ['copy:html']);
+// or
+grrr.registerTask('copyhtml', [
+  copy.config('html', {
+        src: 'src/*',
+        dest: 'dest/',
+  })
+]);
+
+```
+
+Run grrr (actually configure and register tasks for grunt)
+```javascript
+grrr.run()
+```
+
 
 ## Examples
 _(Coming soon)_
