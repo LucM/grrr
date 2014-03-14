@@ -3,10 +3,11 @@
 var grunt = {
   loadNpmTasks: function() {},
   registerTask: function() {},
-  initConfig: function() {}
+  initConfigargs: {},
+  initConfig: function(args) {
+    this.initConfigargs = args;
+  }
 };
-
-var grrr = require('../lib/grrr.js')(grunt);
 
 /*
   ======== A Handy Little Mocha Reference ========
@@ -34,35 +35,78 @@ var grrr = require('../lib/grrr.js')(grunt);
 
 var assert = require('assert');
 
-suite('Module', function(){
-  test('#grrr', function(done){
-    assert.equal(typeof grrr, 'object');
-    done();
-  });
 
-});
+suite('Task Object', function(){
 
-suite('Task', function(){
-  test('#Task', function(done){
+  var grrr = require('../lib/grrr.js')(grunt);
+
+  test('Constructor', function(done) {
     assert.equal(typeof grrr.Task, 'function');
+
+    var task = new grrr.Task('name', 'lib');
+    assert.equal(task.name, 'name');
+    assert.equal(task.configs.length, 0);
     done();
   });
 
-  test('#Task config', function(done){
+  test('config()', function(done) {
     var task = new grrr.Task('fakelib', 'task');
+    task.config('foo', { foo: 'bar' });
 
-    assert.equal(typeof task.config, 'function');
-    task.config('subconfig', {});
-    assert.equal(task.configs.length, 1);
-    assert.equal(task.configs[0].name, 'subconfig');
-    assert.equal(typeof task.configs[0].config, 'object');
+    assert.deepEqual(task.configs[0], {name: 'foo', config: { foo: 'bar'}});
+    assert.deepEqual(task.config('bar', { bar: 'foo' }), 'fakelib:bar');
 
-    assert.deepEqual(task.getConfig(), { subconfig: {} });
+    done();
 
-    task.config('foo', { bar: true });
-    assert.deepEqual(task.getConfig(), { subconfig: {}, foo: { bar: true } });
+  });
 
+  test('getConfig()', function(done) {
+    var task = new grrr.Task('foo', 'task');
+    task.config('first', { foo: 'bar' });
+    task.config('second', { bar: 'foo'});
+
+    assert.equal(typeof task.getConfig, 'function');
+    assert.deepEqual(task.getConfig(), {
+      first: { foo: 'bar' },
+      second: { bar: 'foo'}
+    });
+
+    done();
+  });
+});
+
+
+suite('Main functions', function(){
+
+  var grrr = require('../lib/grrr.js')(grunt);
+  var foo = new grrr.Task('foo', 'foo');
+  foo.config('foo1', {foo: 'foo'});
+  foo.config('foo2', {foo: 'foo'});
+
+  var bar = new grrr.Task('bar', 'bar');
+  bar.config('bar', {bar: 'bar'});
+
+  var expectedConfig = {
+    foo: { foo1: { foo: 'foo'}, foo2: { foo: 'foo'} },
+    bar: { bar: { bar: 'bar' } }
+  };
+
+  test('initConfig()', function(done) {
+    assert.equal(typeof grrr.initConfig, 'function');
+    assert.deepEqual(grrr.initConfig(), expectedConfig);
+    done();
+  });
+
+  test('registerTask()', function(done) {
+    assert.equal(typeof grrr.registerTask, 'function');
+    done();
+  });
+
+  test('run()', function(done) {
+    grrr.run();
+    assert.deepEqual(grunt.initConfigargs, expectedConfig);
     done();
   });
 
 });
+
