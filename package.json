@@ -1,6 +1,6 @@
 {
   "name": "grrr",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "lib/grrr.js",
   "description": "A simply way to split grunt config for a better readability",
   "homepage": "https://github.com/LucM/grrr",
